@@ -1,0 +1,235 @@
+<div class="md:container md:mx-auto grid grid-cols-1 gap-4">
+  <div class="flex w-full items-center justify-center p-2">
+    <div class="inline-block" *ngFor="let roomStatus of roomStatusDatas">
+      <nz-tag
+        [nzColor]="roomStatus.color"
+        class="font-bold w-24 h-20 text-center py-6"
+      >
+        <p>{{ roomStatus.status }}</p>
+        <p>{{ getQuantityStatus(roomStatus.status) }}</p>
+      </nz-tag>
+    </div>
+  </div>
+  <div
+    class="
+      flex
+      w-full
+      items-center
+      justify-center
+      p-1
+      border-2 border-grey-light
+    "
+  >
+    <div class="inline-block mb-2">
+      <ng-template #searchSuffit
+        ><i nz-icon nz nzType="search" class="text-sm text-center"></i
+      ></ng-template>
+      <nz-select
+        class="px-2 w-48 text-base"
+        nzShowSearch
+        nzServerSearch
+        [nzSuffixIcon]="searchSuffit"
+        nzNotFoundContent="Không tìm thấy dữ liệu"
+        nzPlaceHolder="Trạng thái"
+        (nzOnSearch)="onSearchStatus($event)"
+        [(ngModel)]="rooomStatusSearchText"
+      >
+        <nz-option
+          *ngFor="let o of roomStatusSearch"
+          [nzLabel]="o.status"
+          [nzValue]="o._id"
+        >
+        </nz-option>
+      </nz-select>
+
+      <nz-select
+        class="px-2 w-48 text-base"
+        nzShowSearch
+        nzServerSearch
+        [nzSuffixIcon]="searchSuffit"
+        nzNotFoundContent="Không tìm thấy dữ liệu"
+        nzPlaceHolder="Hạng phòng"
+        (nzOnSearch)="onSearchRank($event)"
+        [(ngModel)]="roomRankSearchText"
+
+      >
+        <nz-option
+          *ngFor="let rank of roomRankSearch"
+          [nzLabel]="rank.name"
+          [nzValue]="rank._id"
+        >
+        </nz-option>
+      </nz-select>
+
+      <!-- <nz-select
+        class="px-2 w-48 text-base"
+        nzShowSearch
+        nzServerSearch
+        nzNotFoundContent="Không tìm thấy dữ liệu"
+        nzPlaceHolder="Tìm phòng"
+        (nzOnSearch)="onSearchRank($event)"
+        [nzSuffixIcon]="searchSuffit"
+      >
+        <nz-option
+          *ngFor="let o of roomRankSearch"
+          [nzLabel]="o.name"
+          [nzValue]="o._id"
+        >
+        </nz-option>
+      </nz-select> -->
+
+      <!-- <button
+        nz-button
+        class="
+          w-auto
+          bg-green-500
+          hover:bg-green-400
+          focus:bg-green-300
+          font-bold
+          text-center text-white
+          rounded-full
+          float-right
+        "
+      >
+        <i nz-icon class="text-xl" nzType="form"></i>
+        Lập phiếu đặt
+      </button> -->
+
+      <!-- <button
+        nz-button
+        class="
+          w-auto
+          bg-green-500
+          hover:bg-green-400
+          focus:bg-green-300
+          font-bold
+          text-center text-white
+          rounded-full
+          float-right
+        "
+      >
+        <i nz-icon class="text-xl" nzType="form"></i>
+        Lập phiếu thuê
+      </button> -->
+
+      <div class="inline-flex mt-4 p-2">
+        <!-- <nz-date-picker
+          [nzDisabledDate]="disabledStartDate"
+          nzShowTime
+          nzFormat="yyyy-MM-dd HH:mm:ss"
+          [(ngModel)]="startValue"
+          nzPlaceHolder="Start"
+          (nzOnOpenChange)="handleStartOpenChange($event)"
+          class="w-40"
+        ></nz-date-picker>
+
+        <nz-date-picker
+          [nzDisabledDate]="disabledEndDate"
+          nzShowTime
+          nzFormat="yyyy-MM-dd HH:mm:ss"
+          [(ngModel)]="endValue"
+          nzPlaceHolder="End"
+          (nzOnOpenChange)="handleEndOpenChange($event)"
+          class="w-40"
+        ></nz-date-picker> -->
+
+        <button
+          nz-button
+          class="
+            w-32
+            bg-blue-dark
+            hover:bg-blue-200
+            focus:bg-blue-300
+            font-bold
+            text-center text-white
+            rounded-full
+            ml-2
+          "
+          (click)="onSearchRoom()"
+        >
+          <i nz-icon class="text-xl" nzType="search"></i>
+          Tra Cứu
+        </button>
+
+        <button
+          nz-button
+          class="
+            w-32
+            bg-blue-dark
+            hover:bg-blue-200
+            focus:bg-blue-300
+            font-bold
+            text-center text-white
+            rounded-full
+            ml-2
+          "
+          (click)="refresh()"
+        >
+          <i nz-icon class="text-xl" nzType="redo"></i>
+          Làm mới
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap w-full">
+    <div *ngFor="let room of rooms">
+      <div
+        [ngStyle]="{ background: room.roomStatus.color }"
+        class="w-48 h-48 text-center p-2 m-2 hover:scale-y-50"
+        (click)="openModalUpdateRoom(room._id)"
+      >
+        <p class="text-center text-white">{{ room.roomRank?.name }}</p>
+        <p class="text-center text-white">Phòng</p>
+        <p class="text-center text-5xl py-6 text-white">{{ room.roomCode }}</p>
+        <p class="text-center text-white">
+          {{ room.customerInfo ? room.customerInfo?.fullName : "_" }}
+        </p>
+        <p class="text-center text-white">
+          {{ room.customerInfo ? room.customerInfo?.phone : "_" }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<nz-modal
+  [(nzVisible)]="modalUpdateRoom"
+  nzTitle="Trạng thái phòng"
+  (nzOnCancel)="closeModalUpdateRoom()"
+  class="h-auto w-auto"
+>
+  <div class="flex flex-1" *nzModalContent>
+    <div>
+      <label>Trạng thái: </label>
+      <span>{{ room ? getStatusRoomDetail(room.roomStatus) : ''}}</span>
+    </div>
+    <div>
+      <nz-select
+        class="px-2 w-48 text-base"
+        nzShowSearch
+        nzServerSearch
+        nzNotFoundContent="Không tìm thấy dữ liệu"
+        nzPlaceHolder="Trạng thái"
+        (nzOnSearch)="onSearchStatus($event)"
+        [nzSuffixIcon]="searchSuffit"
+        [(ngModel)]="statusRoomSelected"
+      >
+        <nz-option
+          *ngFor="let roomStatus of roomStatusSearch"
+          [nzLabel]="roomStatus.status"
+          [nzValue]="roomStatus._id"
+        >
+        </nz-option>
+      </nz-select>
+    </div>
+    <div>
+      <button
+        nz-button
+        class="text-white font-bold rounded-full bg-blue-500 hover:bg-blue-300"
+      (click)="updateStatusRoom()"
+        >
+        Lưu
+      </button>
+    </div>
+  </div>
+  <div *nzModalFooter></div>
+</nz-modal>

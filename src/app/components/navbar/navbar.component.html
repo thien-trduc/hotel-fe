@@ -1,0 +1,63 @@
+<nav class="navbar">
+  <div class="nav">
+    <img src="/assets/image/Logo-Header.png" class="brand-logo" alt="" />
+    <div class="nav-items">
+      <a (click)="redirectCart()"
+        ><i
+          nz-icon
+          nzType="shopping-cart"
+          nzTheme="outline"
+          class="icon-user-cart"
+        ></i
+      ></a>
+      <a (click)="redirectUserCustomer()"
+        ><i nz-icon nzType="user" nzTheme="outline" class="icon-user-cart"></i
+      ></a>
+      <div class="user-detail" *ngIf="userCustomer">
+        <a>{{ userCustomer.username }}</a>
+        <a (click)="logout()">Đăng xuất</a>
+      </div>
+      <div class="user-detail" *ngIf="!userCustomer">
+        <a (click)="redirectUserCustomer()">Đăng nhập</a>
+      </div>
+    </div>
+  </div>
+
+  <ul nz-menu nzMode="horizontal" class="links-container">
+    <li nz-menu-item><a (click)="redirectTrangChu()">Trang chủ</a></li>
+    <li nz-menu-item><a (click)="redirectKhuyenMai()"> </a>Khuyến mãi</li>
+    <li nz-menu-item><a (click)="redirectHangPhong()"></a>Hạng phòng</li>
+    <li nz-menu-item><a (click)="redirectLienHe()"></a>Liên hệ</li>
+  </ul>
+
+  <div class="w-full flex flex-wrap justify-center p-2">
+    <nz-date-picker
+      [nzDisabledDate]="disabledStartDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [(ngModel)]="startValue"
+      nzPlaceHolder="Check In"
+      (nzOnOpenChange)="handleStartOpenChange($event)"
+      (ngModelChange)="onStartChange($event)"
+      class="w-64 mr-3"
+    ></nz-date-picker>
+
+    <nz-date-picker
+      [nzDisabledDate]="disabledEndDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [(ngModel)]="endValue"
+      nzPlaceHolder="Check Out"
+      (nzOnOpenChange)="handleEndOpenChange($event)"
+      (ngModelChange)="onEndChange($event)"
+      class="w-64 mr-3"
+    ></nz-date-picker>
+
+    <!-- <div class="search">
+      <input type="text" class="search-box" placeholder="Hạng phòng" />
+      <button nz-button class="search-btn">
+        <i nz-icon nzType="search" nzTheme="outline"></i>Tìm
+      </button>
+    </div> -->
+  </div>
+</nav>

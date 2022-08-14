@@ -1,0 +1,333 @@
+<div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
+  <div
+    class="mb-2 border-solid border-gray-300 rounded border shadow-sm w-full"
+  >
+    <div class="bg-gray-200 px-2 py-5 border-solid border-gray-200 border-b">
+      <span class="font-bold">Danh sách {{ title }}</span>
+
+      <ng-template #searchSuffit
+        ><i nz-icon nz nzType="search" class="text-base"></i
+      ></ng-template>
+      <nz-select
+        class="px-2 w-64 text-base"
+        nzShowSearch
+        nzServerSearch
+        nzNotFoundContent="Không tìm thấy dữ liệu"
+        nzPlaceHolder="Tìm theo mã phiếu"
+        (nzOnSearch)="onSearch($event)"
+        (ngModelChange)="onSelectSearchChange($event)"
+        [nzSuffixIcon]="searchSuffit"
+      >
+        <nz-option
+          *ngFor="let o of searchResult"
+          [nzLabel]="o.rentingCode"
+          [nzValue]="o.rentingCode"
+        >
+        </nz-option>
+      </nz-select>
+
+      <!-- <button
+          nz-button
+          class="
+            float-right
+            bg-green-500
+            hover:bg-green-800
+            focus:bg-green-300
+            text-white
+            font-bold
+            px-4
+            pb-2
+            text-center
+            rounded-full
+          "
+          type="button"
+          (click)="openModal()"
+        >
+          Tạo mới
+        </button> -->
+    </div>
+    <div></div>
+    <div class="p-3">
+      <nz-table
+        class="table-responsive w-full rounded"
+        nzShowSizeChanger
+        [nzData]="datas"
+        [nzFrontPagination]="false"
+        [nzLoading]="loading"
+        [nzTotal]="total"
+        [nzPageSize]="pageSize"
+        [nzPageIndex]="pageIndex"
+        (nzQueryParams)="onQueryParamsChange($event)"
+      >
+        <thead>
+          <tr>
+            <th
+              class="border px-2 py-2"
+              nzColumnKey="createdAt"
+              [nzSortFn]="true"
+            >
+              Ngày
+            </th>
+            <th
+              class="border px-2 py-2"
+              nzColumnKey="rentingCode"
+              [nzSortFn]="true"
+            >
+              Mã phiếu
+            </th>
+            <th class="border px-2 py-2">Khách hàng</th>
+            <th class="border px-2 py-2" nzColumnKey="price" [nzSortFn]="true">
+              Tổng tiền
+            </th>
+            <th class="border px-2 py-2" nzColumnKey="status" [nzSortFn]="true">
+              Trạng thái
+            </th>
+            <th class="border px-2 py-2">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of datas">
+            <td class="border px-2 py-2">
+              {{ util.formatDate(data.createdAt) }}
+            </td>
+            <td class="border px-2 py-2">
+              {{ data.rentingCode }}
+            </td>
+            <td class="border px-2 py-2">
+              {{ data.booking?.customer.fullName }}
+            </td>
+
+            <td class="border px-2 py-2">
+              {{ util.formatCurrency(data.totalPrice) }}
+            </td>
+            <td>
+              <nz-tag
+                *ngIf="data.status === 0"
+                nzColor="success"
+                class="font-bold text-center py-1"
+              >
+                <i nz-icon nzType="sync" nzSpin></i>
+                <span>Đang thuê</span>
+              </nz-tag>
+              <nz-tag
+                *ngIf="data.status === 1"
+                nzColor="error"
+                class="font-bold text-center py-1"
+              >
+                <i nz-icon nzType="check-circle"></i>
+                <span>Check Out</span>
+              </nz-tag>
+            </td>
+            <td class="border px-2 py-2">
+              <a
+                class="bg-blue-dark cursor-pointer rounded p-1 mx-1 text-white"
+                (click)="openModal(data._id)"
+              >
+                <i class="fas fa-edit text-base"></i>Chi Tiết</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<nz-modal
+  [(nzVisible)]="formModal"
+  [nzTitle]="title"
+  (nzOnCancel)="closeModal()"
+  [nzWidth]="1200"
+>
+  <form
+    *nzModalContent
+    nzLayout="vertical"
+    nz-form
+    [formGroup]="validateForm"
+    (ngSubmit)="submitForm()"
+    class="h-auto w-auto"
+  >
+    <div class="grid grid-cols-3">
+      <div>
+        <nz-form-item>
+          <nz-form-label
+            class="
+              block
+              text-gray-500
+              font-regular
+              md:text-right
+              font-bold
+              mb-1
+              md:mb-0
+              pr-4
+            "
+            >Mã phiếu:
+          </nz-form-label>
+          <nz-form-control class="block font-regular">
+            <p>{{ data.rentingCode }}</p>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            class="
+              block
+              text-gray-500
+              font-regular
+              md:text-right
+              mb-1
+              md:mb-0
+              pr-4
+              font-bold
+            "
+            >Tên khách hàng:
+          </nz-form-label>
+
+          <nz-form-control class="block font-regular">
+            <p>{{ data.booking?.customer.fullName }}</p>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            class="
+              block
+              text-gray-500
+              font-regular
+              md:text-right
+              mb-1
+              md:mb-0
+              pr-4
+              font-bold
+            "
+            >Ngày đặt:
+          </nz-form-label>
+          <nz-form-control class="block font-regular">
+            <p>{{ util.formatDate(data.createdAt) }}</p>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            class="
+              block
+              text-gray-500
+              font-regular
+              md:text-right
+              mb-1
+              md:mb-0
+              pr-4
+              font-bold
+            "
+            >Phiếu đặt
+          </nz-form-label>
+          <nz-form-control class="block font-regular">
+            <p>{{ data.booking.bookingCode }}</p>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            class="
+              block
+              text-gray-500
+              font-regular
+              md:text-right
+              mb-1
+              md:mb-0
+              pr-4
+              font-bold
+            "
+            >Tổng tiền:
+          </nz-form-label>
+          <nz-form-control class="block font-regular">
+            <p>{{ util.formatCurrency(data.totalPrice) }}</p>
+          </nz-form-control>
+        </nz-form-item>
+        <!-- <nz-form-item>
+            <nz-form-label
+              nzFor="valueDiscount"
+              class="
+                block
+                text-gray-500
+                font-regular
+                md:text-right
+                mb-1
+                md:mb-0
+                pr-4
+                font-bold
+              "
+              >Trị giá giảm:
+            </nz-form-label>
+            <nz-form-control>
+              <input
+                class="
+                  bg-grey-200
+                  border-2 border-grey-200
+                  rounded
+                  w-full
+                  py-2
+                  px-4
+                  text-grey-darker
+                  leading-tight
+                  focus:outline-none focus:bg-white focus:border-purple-light
+                "
+                nz-input
+                type="number"
+                formControlName="valueDiscount"
+                min="0"
+              />
+            </nz-form-control>
+          </nz-form-item> -->
+      </div>
+      <div class="col-span-2">
+        <nz-table
+          #bookingDetailTable
+          [nzBordered]="true"
+          [nzData]="rentingDetailDatas"
+          [nzFrontPagination]="false"
+          [nzShowPagination]="false"
+          [nzScroll]="{ x: '800px', y: '256px' }"
+          class="w-auto h-64"
+        >
+          <thead>
+            <tr>
+              <th>Số phòng</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detail of rentingDetailDatas">
+              <td>{{ detail.room.roomCode }}</td>
+              <td>{{ util.formatDate(detail.checkInDate) }}</td>
+              <td>{{ util.formatDate(detail.checkOutDate) }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+
+    <nz-form-item class="px-2 inline-block">
+      <button
+        nz-button
+        class="
+          text-white
+          font-bold
+          rounded-full
+          bg-red-light
+          hover:bg-red-light
+        "
+        type="button"
+        (click)="closeModal()"
+      >
+        Thoát
+      </button>
+      <button
+        *ngIf="data.status === 0"
+        nz-button
+        class="text-white font-bold rounded-full bg-blue-500 hover:bg-blue-300"
+        type="submit"
+      >
+        Check Out
+      </button>
+    </nz-form-item>
+  </form>
+  <div *nzModalFooter></div>
+</nz-modal>

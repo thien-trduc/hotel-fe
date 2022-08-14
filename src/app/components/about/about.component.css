@@ -1,0 +1,15 @@
+.about-info {
+    color: #000000;
+    text-align: center;
+}
+
+.about-title {
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+}
+
+.about-us-detail {
+    margin: auto;
+    width: 450px; text-align: center;
+}

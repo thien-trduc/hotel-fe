@@ -1,0 +1,15 @@
+<nz-carousel nzAutoPlay style="max-height: 400px;">
+  <div nz-carousel-content *ngFor="let index of sider">
+    <img [src]="index" class="brand-logo" alt="" class="w-full h-full" />
+  </div>
+</nz-carousel>
+<app-room-rank-home-page
+  [data]="roomRankDicountsBooking"
+  title="Khuyến Mãi"
+></app-room-rank-home-page>
+<app-room-rank-home-page
+  [data]="roomRanksBooking"
+  title="Hạng phòng"
+></app-room-rank-home-page>
+<app-collector></app-collector>
+<app-about></app-about>

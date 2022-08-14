@@ -1,0 +1,18 @@
+export enum Route {
+    Admin = 'admin',
+    RoomType = 'kieu-phong',
+    RoomCategory = 'loai-phong',
+    RoomRank = 'hang-phong',
+    RoomMap = 'tiep-tan',
+    RoomStatus ='trang-thai-phong',
+    Home = 'trang-chu',
+    Detail = 'chi-tiet',
+    LoginCustomer = 'dang-nhap',
+    Cart = 'dat-phong',
+    Booking = 'phieu-dat',
+    Renting = 'phieu-thue',
+    Receipt = 'hoa-don',
+    Register = 'dang-ky',
+    StatisticalTurnOver = 'thong-ke-doanh-thu',
+    StatisticalRoomRank = 'thong-ke-hang-phong',
+}

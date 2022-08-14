@@ -1,0 +1,53 @@
+<section class="product-details">
+  <div class="image-slider">
+    <img [src]="backgroundImage" class="w-full h-full p-4" />
+    <div class="product-images">
+      <img *ngFor="let itemImage of sliderImage" [src]="itemImage" alt="" />
+    </div>
+  </div>
+  <div class="details">
+    <h2 class="product-brand">{{ roomRank?.name || '' }}</h2>
+    <p class="product-short-des">{{ roomRank?.description || '' }}</p>
+    <span class="product-price">Giá : {{ roomRank?.priceText || '' }}</span>
+    <!-- <span class="product-actual-price">$200</span> -->
+    <!-- <span class="product-discount">( 50% off )</span> -->
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item class="mt-4">
+        <nz-form-label class="font-bold uppercase text-2xl" nzFor="count"
+          >Số lượng phòng</nz-form-label
+        >
+        <nz-form-control nzErrorTip="Vui lòng nhập số lượng !">
+          <input
+            type="number"
+            nz-input
+            class="
+              w-64
+              h-12
+              text-xl
+              leading-tight
+              bg-grey-lighter
+              border-2
+              focus:outline-none focus:bg-white focus:border-grey
+            "
+            min="1"
+            formControlName="count"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <button nz-button class="            float-right
+        bg-blue-darkest
+        hover:bg-blue-darker
+        focus:bg-blue-dark
+        text-white
+        font-bold
+        w-64
+        h-20
+        text-3xl
+        text-center
+        rounded-full" type="submit">Đặt phòng</button>
+      </nz-form-item>
+    </form>
+  </div>
+</section>

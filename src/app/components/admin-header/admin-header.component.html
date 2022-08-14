@@ -1,0 +1,20 @@
+<header class="bg-nav">
+  <div class="flex justify-between">
+      <div class="p-1 mx-3 inline-flex items-center">
+          <i class="fas fa-bars pr-2 text-white" (click)="sidebarToggle()"></i>
+          <h1 class="text-white p-2">Logo</h1>
+      </div>
+      <div class="p-1 flex flex-row items-center">
+          <img  class="inline-block h-8 w-8 rounded-full" src="" alt="">
+          <a (click)="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Adam Wathan</a>
+          <div id="ProfileDropDown" class="rounded hidden shadow-md bg-white absolute top-0 mt-12 mr-1 right-0">
+              <ul class="list-reset">
+                <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-gray-300">My account</a></li>
+                <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-gray-300">Notifications</a></li>
+                <li><hr class="border-t mx-2 border-gray-ligght"></li>
+                <li><a (click)="logout()" class="no-underline px-4 py-2 block text-black hover:bg-gray-300">Logout</a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</header>

@@ -1,0 +1,190 @@
+<div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+  <span class="font-bold">Bảng giá</span>
+
+  <button
+    nz-button
+    class="
+      float-right
+      bg-green-500
+      hover:bg-green-800
+      focus:bg-green-300
+      text-white
+      font-bold
+      px-4
+      pb-2
+      text-center
+      rounded-full
+    "
+    type="button"
+    (click)="openModal()"
+  >
+    Tạo mới
+  </button>
+</div>
+<div class="p-3">
+  <nz-table
+    class="table-responsive w-full rounded"
+    nzShowSizeChanger
+    [nzData]="datas"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+    <thead>
+      <tr>
+        <th class="border w-2/5 px-4 py-2" nzColumnKey="date" [nzSortFn]="true">
+          Ngày áp dụng
+        </th>
+        <th
+          class="border w-2/5 px-4 py-2"
+          nzColumnKey="price"
+          [nzSortFn]="true"
+        >
+          Giá
+        </th>
+        <th class="border w-1/5 px-4 py-2">Thao Tác</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of datas">
+        <td class="border px-4 py-2">
+          {{ util.formatDate(data.date) }}
+        </td>
+        <td class="border px-4 py-2">{{ util.formatCurrency(data.price) }}</td>
+        <td class="border px-4 py-2">
+          <a
+            class="bg-blue-dark cursor-pointer rounded p-1 mx-1 text-white"
+            (click)="openModal(data._id)"
+          >
+            <i class="fas fa-edit text-base"></i
+          ></a>
+          <a
+            class="bg-red-dark cursor-pointer rounded p-1 mx-1 text-white"
+            (click)="delete(data._id)"
+          >
+            <i class="fas fa-trash text-base"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<nz-modal
+  [(nzVisible)]="formModal"
+  nzTitle="Giá Hạng"
+  (nzOnCancel)="closeModal()"
+  class="h-auto w-auto"
+>
+  <form
+    *nzModalContent
+    nzLayout="vertical"
+    nz-form
+    [formGroup]="validateForm"
+    (ngSubmit)="submitForm()"
+    class="w-full"
+  >
+    <nz-form-item class="md:flex md:items-start mb-6">
+      <div class="md:w-1/4">
+        <nz-form-label
+          nzRequired
+          nzFor="date"
+          class="
+            block
+            text-gray-500
+            font-regular
+            md:text-right
+            mb-1
+            md:mb-0
+            pr-4
+          "
+          >Ngày áp dụng
+        </nz-form-label>
+      </div>
+      <nz-form-control class="md:w-3/4" nzErrorTip="Vui lòng nhập mã loại !">
+        <nz-date-picker
+          class="
+            bg-grey-200
+            appearance-none
+            border-2 border-grey-200
+            rounded
+            w-full
+            py-2
+            px-4
+            text-grey-darker
+            leading-tight
+            focus:outline-none focus:bg-white focus:border-purple-light
+          "
+          (ngModel)="dataRoomPrice ? dataRoomPrice.date : ''"
+          [nzDisabledDate]="disabledDate"
+          formControlName="date"
+        ></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="md:flex md:items-start mb-6">
+      <div class="md:w-1/4">
+        <nz-form-label
+          nzRequired
+          nzFor="price"
+          class="
+            block
+            text-gray-500
+            font-regular
+            md:text-right
+            mb-1
+            md:mb-0
+            pr-4
+          "
+          >Giá
+        </nz-form-label>
+      </div>
+      <nz-form-control class="md:w-3/4">
+        <input
+          class="
+            bg-grey-200
+            border-2 border-grey-200
+            rounded
+            w-full
+            py-2
+            px-4
+            text-grey-darker
+            leading-tight
+            focus:outline-none focus:bg-white focus:border-purple-light
+          "
+          nz-input
+          type="number"
+          formControlName="price"
+          [value]="dataRoomPrice ? dataRoomPrice.price : 0"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="px-2 inline-block">
+      <button
+        nz-button
+        class="
+          text-white
+          font-bold
+          rounded-full
+          bg-red-light
+          hover:bg-red-light
+        "
+        type="button"
+        (click)="closeModal()"
+      >
+        Thoát
+      </button>
+      <button
+        nz-button
+        class="text-white font-bold rounded-full bg-blue-500 hover:bg-blue-300"
+        type="submit"
+      >
+        Lưu
+      </button>
+    </nz-form-item>
+  </form>
+  <div *nzModalFooter></div>
+</nz-modal>

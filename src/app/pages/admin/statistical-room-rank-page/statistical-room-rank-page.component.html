@@ -1,0 +1,54 @@
+<div>
+    <div class="flex flex-1">
+      <nz-date-picker
+        [nzDisabledDate]="disabledStartDate"
+        nzShowTime
+        nzFormat="yyyy-MM-dd HH:mm:ss"
+        [(ngModel)]="startValue"
+        nzPlaceHolder="Từ Ngày"
+        (nzOnOpenChange)="handleStartOpenChange($event)"
+        class="w-64 mr-3"
+      ></nz-date-picker>
+  
+      <nz-date-picker
+        [nzDisabledDate]="disabledEndDate"
+        nzShowTime
+        nzFormat="yyyy-MM-dd HH:mm:ss"
+        [(ngModel)]="endValue"
+        nzPlaceHolder="Đến ngày"
+        (nzOnOpenChange)="handleEndOpenChange($event)"
+        class="w-64 mr-3"
+      ></nz-date-picker>
+  
+      <button
+        nz-button
+        (click)="show()"
+        class="
+          bg-blue-500
+          hover:bg-blue-800
+          focus:bg-blue-300
+          text-white
+          font-bold
+          px-4
+          pb-2
+          text-center
+          rounded-full
+        "
+      >
+        Xem
+      </button>
+    </div>
+    <div>
+      <div *ngIf="showChart">
+        <canvas
+          baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="barChartType"
+          [plugins]="barChartPlugins"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+  

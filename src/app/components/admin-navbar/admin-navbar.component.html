@@ -1,0 +1,390 @@
+<!--Sidebar-->
+<ul nz-menu nzMode="inline" class="list-reset flex flex-col">
+  <li
+    nz-submenu
+    nzTitle="Tiếp tân"
+    nzIcon="appstore"
+    class="w-full h-full py-3 px-2 border-b border-300-border font-bold"
+  >
+    <ul>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRoomMap()"
+          >Sơ đồ phòng</a
+        >
+      </li>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectBooking()"
+        >
+          Phiếu đặt
+        </a>
+      </li>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRenting()"
+        >
+          Phiếu Thuê 
+        </a>
+      </li>
+      <!-- <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+        >
+          Khách Hàng
+        </a>
+      </li> -->
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectReceipt()"
+        >
+          Hóa Đơn
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li
+    nz-submenu
+    nzTitle="Danh Mục"
+    nzIcon="appstore"
+    class="w-full h-full py-3 px-2 border-b border-300-border font-bold"
+  >
+    <ul>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRoomRank()"
+          >Hạng phòng</a
+        >
+      </li>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRoomCategory()"
+        >
+          Loại phòng
+        </a>
+      </li>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRoomType()"
+        >
+          Kiểu phòng
+        </a>
+      </li>
+
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectRoomStatus()"
+          >Trạng thái phòng</a
+        >
+      </li>
+
+      <!-- <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+        >
+          Phòng
+        </a>
+      </li> -->
+      <!-- <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+        >
+          Dịch Vụ
+        </a>
+      </li> -->
+    </ul>
+  </li>
+
+  <li
+    nz-submenu
+    nzTitle="Thống kê"
+    nzIcon="appstore"
+    class="w-full h-full py-3 px-2 border-b border-300-border font-bold"
+  >
+    <ul>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectStatisticalTurnOver()"
+          >Doanh thu</a
+        >
+      </li>
+      <li
+        nz-menu-item
+        class="w-full h-full py-3 px-2 border-b border-300-border"
+      >
+        <a
+          class="
+            font-bold font-sans font-hairline
+            hover:font-normal
+            text-sm text-nav-item
+            no-underline
+          "
+          (click)="redirectStatisticalRoomRank()"
+        >
+          Hạng phòng
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+<!-- <ul class="list-reset flex flex-col">
+    <li class="w-full h-full py-3 px-2 border-b border-300-border">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fas fa-tachometer-alt float-left mx-2"></i>
+        Dashboard
+        <span><i class="fas fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2 border-b border-300-border">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fab fa-wpforms float-left mx-2"></i>
+        Forms
+        <span><i class="fa fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2 border-b border-300-border">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fas fa-grip-horizontal float-left mx-2"></i>
+        Buttons
+        <span><i class="fa fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fas fa-table float-left mx-2"></i>
+        Tables
+        <span><i class="fa fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2 border-b border-300-border bg-white">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fab fa-uikit float-left mx-2"></i>
+        Ui components
+        <span><i class="fa fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2 border-b border-300-border">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="fas fa-square-full float-left mx-2"></i>
+        Modals
+        <span><i class="fa fa-angle-right float-right"></i></span>
+      </a>
+    </li>
+    <li class="w-full h-full py-3 px-2">
+      <a
+        class="
+          font-bold
+          font-sans font-hairline
+          hover:font-normal
+          text-sm text-nav-item
+          no-underline
+        "
+      >
+        <i class="far fa-file float-left mx-2"></i>
+        Pages
+        <span><i class="fa fa-angle-down float-right"></i></span>
+      </a>
+      <ul class="list-reset -mx-2 bg-white-medium-dark">
+        <li class="border-t mt-2 border-300-border w-full h-full px-2 py-3">
+          <a
+            class="
+              font-bold
+              mx-4
+              font-sans font-hairline
+              hover:font-normal
+              text-sm text-nav-item
+              no-underline
+            "
+          >
+            Login Page
+            <span><i class="fa fa-angle-right float-right"></i></span>
+          </a>
+        </li>
+        <li class="border-t border-300-border w-full h-full px-2 py-3">
+          <a
+            class="
+              font-bold
+              mx-4
+              font-sans font-hairline
+              hover:font-normal
+              text-sm text-nav-item
+              no-underline
+            "
+          >
+            Register Page
+            <span><i class="fa fa-angle-right float-right"></i></span>
+          </a>
+        </li>
+        <li class="border-t border-300-border w-full h-full px-2 py-3">
+          <a
+            class="
+              font-bold
+              mx-4
+              font-sans font-hairline
+              hover:font-normal
+              text-sm text-nav-item
+              no-underline
+            "
+          >
+            404 Page
+            <span><i class="fa fa-angle-right float-right"></i></span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul> -->
+<!--/Sidebar-->
